@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uploader Sign-in</title>
+<meta name="description" content="Finishes TikTok sign-in for the Layers Explained Uploader.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<h1>Finishing sign-in…</h1>
+<p id="msg" class="muted">Handing you back to the Layers Explained Uploader on this computer.</p>
+<script>
+// TikTok sends the sign-in result here. The uploader is waiting on this same computer at
+// http://127.0.0.1:8765/callback, so pass the result straight to it. Nothing is stored on this page.
+(function () {
+  var q = window.location.search || '';
+  var p = new URLSearchParams(q);
+  if (!p.get('code') && !p.get('error')) {
+    document.getElementById('msg').textContent = 'No sign-in result found. Start the sign-in again from the uploader.';
+    return;
+  }
+  window.location.replace('http://127.0.0.1:8765/callback' + q);
+})();
+</script>
+<footer>Layers Explained · <a href="./">Home</a> · <a href="privacy.html">Privacy</a></footer>
+</main>
+</body>
+</html>
